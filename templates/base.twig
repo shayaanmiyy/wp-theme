@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Site{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>{% block header %}Welcome to My Site{% endblock %}</h1>
+        {% set title = 'My Site Header' %}
+        {{ include('components/header.twig') }}
+
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>{% block footer %}© 2024 My Site{% endblock %}</p>
+    </footer>
+</body>
+</html>
