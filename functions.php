@@ -1,4 +1,7 @@
 <?php
+require_once 'vendor/autoload.php';
+
+
 // Load Timber library
 if (!class_exists('Timber')) {
     add_action('admin_notices', function () {
@@ -7,7 +10,36 @@ if (!class_exists('Timber')) {
     return;
 }
 
+
 Timber::$dirname = array('templates', 'views');
+
+add_filter('timber/twig', function($twig) {
+    $twig->addExtension(new Twig_Extensions_Extension_Text());
+    return $twig;
+});
+
+function capitalize_first($string) {
+    return ucwords($string);
+}
+
+add_filter('timber/twig', function($twig) {
+    $twig->addFilter(new Twig\TwigFilter('capitalize_first', 'capitalize_first'));
+    return $twig;
+});
+
+function square($number) {
+    return $number * $number;
+}
+
+add_filter('timber/twig', function($twig) {
+    $twig->addFunction(new Twig\TwigFunction('square', 'square'));
+    return $twig;
+});
+
+add_filter('timber/twig', function($twig) {
+    $twig->addExtension(new Twig_Extensions_Extension_Array());
+    return $twig;
+});
 
 class MySite extends Timber\Site
 {
@@ -21,6 +53,7 @@ class MySite extends Timber\Site
         parent::__construct();
     }
 
+
     public function add_to_context($context)
     {
         $context['SayHello'] = 'Hello World';
@@ -29,7 +62,7 @@ class MySite extends Timber\Site
         $context['description'] = '  This is a description with some extra spaces.  ';
         return $context;
     }
-
+    
     public function add_to_twig($twig)
     {
         $twig->addExtension(new Twig\Extension\StringLoaderExtension());
