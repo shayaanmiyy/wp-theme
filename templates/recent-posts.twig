@@ -1,0 +1,25 @@
+{% extends 'base.twig' %}
+
+{% block title %}You are now Watching Recent Posts{% endblock %}
+
+{% block h1 %}Recent Posts{% endblock %}
+
+{% block mainsection %}
+   <div class="row p-2 gap-2">
+        {% for post in posts %}
+            <div class="card col-auto" style="width: 18rem;">
+                {% if post.thumbnail %}
+                    <img src="{{ post.thumbnail.src }}" alt="{{ post.thumbnail.alt }}">
+                {% endif %}
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.excerpt }}</p>
+                    <a href="{{ post.link }}"  class="btn btn-primary">View</a>
+                </div>
+            </div>
+        {% else %}
+            <p>No posts found.</p>
+        {% endfor %}
+  </div>
+{% endblock %}

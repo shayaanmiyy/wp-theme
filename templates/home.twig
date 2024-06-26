@@ -1,0 +1,87 @@
+{# Inherit The Base File
+Means That From Here I only Pass The Block it will go to Base File and Gets Stick there
+#}
+{% extends 'base.twig' %}
+
+{# Importing Components and assigming them a name #}
+{% import 'components/macros.twig' as macros %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block h1 %}Home Page{% endblock %}
+
+{% block mainsection %}
+
+    {# Here In THis Section we are creating Variable and Working on Them on TWIG Itself #}
+
+    <ul>
+        {% for page in pages %}
+            <li><a href="{{ page.link }}">{{ page.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <form class="mt-4 mb-5">
+        <p class="m-0 lead">Here we using macro to print the input</p>
+        {# We Included Macros as macros and in macros we have buttons & Input
+        So here We want input to be shown #}
+        {{ macros.input('name', 'text', '', 'Enter your Name') }}
+        {{ macros.input('phone', 'number', '', 'Enter your Phone Number') }}
+        {{ macros.input('username', 'text', '', 'Enter your username') }}
+        {{ macros.input('password', 'password', '', 'Enter your password') }}
+    </form>
+
+    <div>
+        {# String Truncate From The End #}
+        <p class="m-0 lead">Here we truncating the text truncate(10)</p>
+        {% set long_text = 'This is a very long text that needs to be truncated.' %}
+        <p>{{ long_text|truncate(10) }}</p>
+    </div>
+
+    {% set items = ['Apple', 'Banana', 'Cherry', 'Date'] %}
+    {% set shuffled_items = items|shuffle %}
+
+    {# Due to changes given below, create an Atoms Resuing the Loop #}
+    {{ macros.itemList(shuffled_items) }}
+
+    {% set number = 5 %}
+    <p>{{ square(number) }}</p>
+
+{% endblock %}
+
+{% block content %}
+
+    {# Here In This Section we are getting Variable from PHP and Working on Them #}
+
+    <p>{{ greetVisitor }}</p>
+
+    {# Setting Up Variable #}
+    <p>Name (uppercased): {{ 'Shayaan'|upper }}</p>
+
+    {# Alternate Way to Print Name #}
+    {% set processedName = "The User Name is " ~ name|upper %}
+    <p>{{  processedName  }}</p>
+
+    {# Trim Remove Empty Space #}
+    <p>Description (trimmed): {{ description|trim }}</p>
+
+    {# Lower Case #}
+    <p>Description (lowercased): {{ description|lower }}</p>
+
+    {# Date Filter #}
+    <p>Current Date: {{ "now"|date("Y-m-d") }}</p>
+
+    {# Using If-Else #}
+    {% if score >= 90 %}
+        <p>Grade: A</p>
+    {% elseif score >= 80 %}
+        <p>Grade: B</p>
+    {% elseif score >= 70 %}
+        <p>Grade: C</p>
+    {% else %}
+        <p>Grade: F</p>
+    {% endif %}
+
+    {# Created an atom where just pass the item and Loop will be generated #}
+    {{ macros.itemList(items) }}
+
+{% endblock %}
