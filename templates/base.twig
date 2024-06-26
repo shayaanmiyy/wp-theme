@@ -1,44 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="{{ theme }}">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
-    {# Here In Title Default Value is My Site #}
-    <title>{% block title %}My Site{% endblock %}</title>
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		{{function('wp_head')}}
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link
+		rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"/>
+		{# Here In Title Default Value is My Site #}
+		<title>
+			{% block title %}My Site
+			{% endblock %}
+		</title>
+	</head>
 
-<body>
+	<body>
+		{{ admin_bar }}
 
-    <header>
-        {# Include Header from Components #}
-        {{ include('components/navbar.twig') }}
-    </header>
+		<header>
+			{# Include Header from Components #}
+			{{ include('components/navbar.twig') }}
+		</header>
 
-    <main class="container-fluid">
+		<main
+			class="container-fluid">
 
-        {# Creating a Common Div #}
-        <div class="container bg-light border rounded p-3 mt-3">
-            {# Here is The Header where Similarly we have given a Deafult Value #}
-            <h1 class="h1 mt-3">{% block h1 %}Welcome to My Site{% endblock %}</h1>
-        </div>
+			{# Creating a Common Div #}
+			<div
+				class="container border rounded p-3 mt-3 mb-3">
+				{# Here is The Header where Similarly we have given a Deafult Value #}
+				<h1 class="h1 mt-3">
+					{% block h1 %}Welcome to My Site
+					{% endblock %}
+				</h1>
+			</div>
 
-        {# Block To Display Content of Main Section #}
-        {% block mainsection %}{% endblock %}
+			<section
+				class="container">
+				{# Block To Display Content of Main Section #}
+				{% block mainsection %}{% endblock %}
 
-        {# Additional Block To Display Content in Main Section #}
-        {% block content %}{% endblock %}
+				{# Additional Block To Display Content in Main Section #}
+				{% block content %}{% endblock %}
+			</section>
 
-    </main>
+		</main>
 
-    <footer>
-        {% include "components/footer.twig" %}
-    </footer>
+		<footer>
+			{% include "components/footer.twig" %}
+		</footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+		{{function('wp_footer')}}
+	</body>
 
 </html>
