@@ -1,0 +1,20 @@
+{# Macros For Input #}
+{% macro input(name, type, value, placeholder) %}
+    <input type="{{ type }}" name="{{ name }}" value="{{ value }}" placeholder="{{ placeholder }}" />
+{% endmacro %}
+
+
+{# Macros For Button #}
+{% macro button(text, url, class) %}
+    <a href="{{ url }}" class="{{ class }}">{{ text }}</a>
+{% endmacro %}
+
+
+{# _macros.twig #}
+{% macro itemList(items) %}
+    <ul>
+        {% for item in items %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+{% endmacro %}
